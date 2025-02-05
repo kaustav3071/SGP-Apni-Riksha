@@ -2,6 +2,9 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+// User Schema with validation rules for the user object properties 
+
+
 const userSchema = new mongoose.Schema({
     fullName : {
         firstName : {

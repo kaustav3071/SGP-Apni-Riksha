@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+// Connect to MongoDB database using Mongoose ORM library and environment variables from .env file using dotenv package
+
 async function connectDB() {
     try {
         await mongoose.connect(process.env.MONGO_CONNECTION_URL),
