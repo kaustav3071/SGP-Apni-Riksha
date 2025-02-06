@@ -6,6 +6,7 @@ const app = express();
 const connectDB = require('./db/db');
 const userRoutes = require('./routes/user.routes');
 const cookieParser = require('cookie-parser');
+const saarthiRoutes = require('./routes/saarthi.routes');
 
 app.use(cookieParser());
 connectDB();
@@ -19,6 +20,8 @@ app.get('/', (req, res) => {
 });
 
 app.use('/users', userRoutes);
+
+app.use('/saarthi', saarthiRoutes);
 
 
 module.exports = app;

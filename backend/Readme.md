@@ -67,50 +67,51 @@ Creates a new user.
   }
 }
 ```
-// ...existing code...
 
-## /users/profile Endpoint
+# /captains/register Endpoint
 
-### Description
-Retrieves the current user's profile.
+## Description
+Registers a new captain.
 
-- **Method**: `GET`  
-- **URL**: `/users/profile`  
-- **Headers**:  
-  - `Authorization: Bearer <token>` (if using headers)  
-  - Or valid cookie with token  
-
-### Possible Status Codes
-- **200**: Profile retrieved  
-- **401**: Unauthorized  
-- **500**: Internal server error  
-
-### Example Response
+## Request
+- **Method**: `POST`
+- **URL**: `/captains/register`
+- **Body** (JSON):
 ```json
 {
-  "user": {
-    "_id": "123456",
-    "fullName": {
-      "firstName": "John",
-      "lastName": "Doe"
-    },
-    "email": "john@example.com"
+  "fullName": {
+    "firstName": "string",
+    "lastName": "string"
+  },
+  "email": "string",
+  "password": "string",
+  "vehicle": {
+    "color": "string",
+    "plate": "string",
+    "capacity": "number",
+    "type": "string"
   }
 }
 ```
 
-## /users/logout Endpoint
-### Description
-Logs out the current user.
-
-- **Method**: `GET`  
-- **URL**: `/users/logout`  
-- **Headers**:  
-  - `Authorization: Bearer <token>` (if using headers)  
-  - Or valid cookie with token 
+## Response
+- **Body** (JSON):
 ```json
 {
-  "message": "Logged out successfully"
+  "token": "generated-jwt-token",
+  "user": {
+    "_id": "6499372cafef123abc45e5d6",
+    "fullName": {
+      "firstName": "John",
+      "lastName": "Doe"
+    },
+    "email": "john@example.com",
+    "vehicle": {
+      "color": "red",
+      "plate": "ABC123",
+      "capacity": 4,
+      "type": "auto"
+    }
+  }
 }
-// ...existing code...
 ```
