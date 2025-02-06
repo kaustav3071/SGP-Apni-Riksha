@@ -1,1 +1,1 @@
-# up to 44.25 min
+# up to 1.11.02 min
