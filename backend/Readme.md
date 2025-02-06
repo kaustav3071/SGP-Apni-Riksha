@@ -1,5 +1,3 @@
-# Backend API Documentation
-
 # /users/register Endpoint
 
 ## Description
@@ -35,3 +33,37 @@ Creates a new user.
     "email": "john@example.com"
   }
 }
+```
+
+# /users/login Endpoint
+
+## Description
+- This endpoint handles user login.
+
+**Method**: POST
+**URL**: /users/login
+
+## Request
+- **Body** (JSON):
+```json
+{
+  "email": "string",
+  "password": "string"
+}
+```
+
+## Response
+- **Body** (JSON):
+```json
+{
+  "token": "generated-jwt-token",
+  "user": {
+    "_id": "6489392cafef123abc45e3a1",
+    "fullName": {
+      "firstName": "Jane",
+      "lastName": "Doe"
+    },
+    "email": "jane@example.com"
+  }
+}
+```
