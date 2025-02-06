@@ -68,14 +68,14 @@ Creates a new user.
 }
 ```
 
-# /captains/register Endpoint
+# /saarthi/register Endpoint
 
 ## Description
-Registers a new captain.
+Registers a new saarthi.
 
 ## Request
 - **Method**: `POST`
-- **URL**: `/captains/register`
+- **URL**: `/saarthi/register`
 - **Body** (JSON):
 ```json
 {
