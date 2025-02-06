@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const BlacklistToken = require("./blacklistToken.model");
 
 // User Schema with validation rules for the user object properties 
 
@@ -35,7 +36,7 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.methods.generateAuthToken = function() {
-    const token = jwt.sign({_id : this._id}, process.env.JWT_SECRET);
+    const token = jwt.sign({_id : this._id}, process.env.JWT_SECRET, {expiresIn : "24h"});
     return token;
 };
 userSchema.methods.comparePassword = async function(enteredPassword) {
@@ -44,6 +45,18 @@ userSchema.methods.comparePassword = async function(enteredPassword) {
 userSchema.statics.hashPassword = async function(plainPassword) {
     return await bcrypt.hash(plainPassword, 10);
 };
+
+// Check if token is blacklisted
+userSchema.statics.isTokenBlacklisted = async function (token) {
+    try {
+        const blacklisted = await BlacklistToken.findOne({ token });
+        return blacklisted ? true : false;
+    } catch (error) {
+        console.error("Error checking blacklist:", error);
+        return false; // Assume token is not blacklisted if an error occurs
+    }
+};
+
 
 const user = mongoose.model("User", userSchema);
 
