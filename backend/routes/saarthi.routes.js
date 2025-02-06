@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { body } = require("express-validator");
 const saarthiController = require('../controllers/saarthi.controller');
+const { authSaarthi } = require('../middlewares/auth.middleware');
 
 
 
@@ -20,7 +21,19 @@ router.post("/register",[
 ],
 saarthiController.registerSaarthi);
 
+// Login saarthi route only accepts POST requests
 
+router.post("/login",[
+    body("email").isEmail().withMessage("Invalid email"),
+    body("password").isLength({min:6}).withMessage("Password should be at least 6 characters long")
+],
+saarthiController.loginSaarthi);
+
+// Profile route only accepts POST requests
+
+router.get("/profile", authSaarthi, saarthiController.getSaarthiProfile);   
+
+// Logout 
 
 
 

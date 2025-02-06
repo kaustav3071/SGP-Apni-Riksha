@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const BlacklistToken = require("./blacklistToken.model");
+const BlacklistToken = require("./blackListToken.model");
 
 // User Schema with validation rules for the user object properties 
 
