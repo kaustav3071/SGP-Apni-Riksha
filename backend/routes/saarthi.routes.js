@@ -31,11 +31,11 @@ saarthiController.loginSaarthi);
 
 // Profile route only accepts POST requests
 
-router.get("/profile", authSaarthi, saarthiController.getSaarthiProfile);   
+router.get("/profile",authSaarthi,saarthiController.profileSaarthi);
 
 // Logout 
 
-
+router.get("/logout", authSaarthi, saarthiController.logoutSaarthi);
 
 
 

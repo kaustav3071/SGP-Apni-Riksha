@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const blacklistTokenSchema = new mongoose.Schema({
+const blackListTokenSchema = new mongoose.Schema({
     token: {
         type: String,
         required: true,
@@ -13,7 +13,13 @@ const blacklistTokenSchema = new mongoose.Schema({
     }
 });
 
+// Define a static method to check if a token is blacklisted
+blackListTokenSchema.statics.isTokenBlacklisted = async function (token) {
+    const blacklistedToken = await this.findOne({ token });
+    return !!blacklistedToken; // Returns true if found, false otherwise
+};
+
 // Avoid overwriting the model if it already exists
-const BlacklistToken = mongoose.models.BlacklistToken || mongoose.model('BlacklistToken', blacklistTokenSchema);
+const BlacklistToken = mongoose.models.BlacklistToken || mongoose.model('BlacklistToken', blackListTokenSchema);
 
 module.exports = BlacklistToken;

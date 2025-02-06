@@ -115,3 +115,85 @@ Registers a new saarthi.
   }
 }
 ```
+# /saarthi/login Endpoint
+
+## Description
+This endpoint handles saarthi login.
+
+## Request
+- **Method**: `POST`
+- **URL**: `/saarthi/login`
+- **Body** (JSON):
+```json
+{
+  "email": "string",
+  "password": "string"
+}
+```
+## Response
+- **Body** (JSON):
+```json
+{
+  "token": "generated-jwt-token",
+  "user": {
+    "_id": "6489392cafef123abc45e3a1",
+    "fullName": {
+      "firstName": "Jane",
+      "lastName": "Doe"
+    },
+    "email": "jane@example.com",
+    "vehicle": {
+      "color": "blue",
+      "plate": "XYZ789",
+      "capacity": 3,
+      "type": "auto"
+    }
+  }
+}
+```
+
+# /saarthi/profile Endpoint
+
+## Description
+Retrieves the current saarthi's profile
+
+## Request
+- **Method**: `POST`
+- **URL**: `/saarthi/profile`
+- **Headers**: `Authorization: Bearer <token> (if using headers) Or valid cookie with token`
+- **Body** (JSON):
+
+## Response
+- **Body** (JSON):
+```json
+{
+  "user": {
+    "_id": "123456",
+    "fullName": {
+      "firstName": "John",
+      "lastName": "Doe"
+    },
+    "email": "john@example.com",
+    "vehicle": {
+      "color": "red",
+      "plate": "ABC123",
+      "capacity": 4,
+      "type": "auto"
+    }
+  }
+}
+```
+# /saarthi/logout Endpoint
+
+## Description
+Logs out the current saarthi.
+
+## Request
+- **Method**: `GET`
+- **URL**: `/saarthi/logout`
+- **Headers**: `Authorization: Bearer <token> (if using headers) Or valid cookie with token`
+```json
+{
+  "message": "Logged out successfully"
+}
+```
