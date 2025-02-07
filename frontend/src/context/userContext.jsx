@@ -20,5 +20,4 @@ const UserContext = ({children}) => {
     </div>;
     }
 
-
 export default UserContext;

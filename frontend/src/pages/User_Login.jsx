@@ -1,18 +1,38 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { UserDataContext } from "../context/userContext";
+import { useNavigate } from "react-router-dom";
+
 
 const User_Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [userDate, setUserDate] = useState({});
 
-    const submitHandler = (e) => {
+    const { user, setUser } = React.useContext(UserDataContext);
+    const navigate = useNavigate();
+
+    const submitHandler = async (e) => {
         e.preventDefault();
-        setUserDate({ 
-            email:email, 
-            password:password });
+        const userDate = {
+            email: email,
+            password: password
+        };
         setEmail("");
         setPassword("");
+
+        const response = await axios.post(import.meta.env.VITE_BASE_URL + "/users/login", userDate)
+
+        if (response.status === 200) {
+            const data = response.data;
+            setUser(data.user);
+            alert("User logged in successfully");
+            navigate("/home");
+        } else {
+            alert("User not logged in");
+        }
+
     };
     return (
         <div className="h-screen flex flex-col bg-yellow-100 p-7 justify-center items-center" style={{ fontFamily: 'sans-serif' }}>
