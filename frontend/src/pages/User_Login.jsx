@@ -19,7 +19,7 @@ const User_Login = () => {
             <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md" style={{height: "500px"}}>
                 <div className="flex items-center justify-center mb-4"> {/* Container for icon and title */}
                     <img width="40" height="40" src="https://img.icons8.com/stickers/50/passenger.png" alt="passenger" className="mr-2" /> {/* Added margin-right */}
-                    <h1 className="text-3xl font-medium text-gray-800">User     Sign In</h1>
+                    <h1 className="text-3xl font-medium text-gray-800">User Sign In</h1>
                 </div>
                 <form className="space-y-4" onSubmit={submitHandler}>
                     <h3 className="text-lg font-medium mb-2 text-gray-700">What's Your Email</h3>
@@ -53,7 +53,7 @@ const User_Login = () => {
                         Login
                     </button>
                     <div className="text-center mt-4">
-                        <p className="text-gray-600">New Here?<Link to="/signup" className="text-blue-600 hover:underline">Create new Account</Link></p>
+                        <p className="text-gray-600">New here? <Link to="/signup" className="text-blue-600 hover:underline">Create new Account</Link></p>
                     </div>
                 </form>
                 <Link to="/saarthi-login" 

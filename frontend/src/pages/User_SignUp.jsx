@@ -5,24 +5,22 @@ const User_Signup = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
-    const [phone, setPhone] = useState("");
     const [password, setPassword] = useState("");
     const [userData, setUserData] = useState({});
 
     const submitHandler = (e) => {
         e.preventDefault();
         setUserData({
-            firstName: firstName,
-            lastName: lastName,
+            fullName:{
+                firstName: firstName,
+                lastName: lastName,
+            },
             email: email,
-            phone: phone,
             password: password
         });
-        console.log(userData);
         setFirstName("");
         setLastName("");
         setEmail("");
-        setPhone("");
         setPassword("");
     };
 
@@ -36,7 +34,7 @@ const User_Signup = () => {
                 <form className="space-y-4" onSubmit={submitHandler}>
                     <div className="flex space-x-2"> {/* First and Last Name in one row */}
                         <div className="w-1/2"> {/* Adjust width as needed */}
-                            <h3 className="text-lg font-medium mb-2 text-gray-700">First Name</h3>
+                            <h3 className="text-lg font-medium mb-2 text-gray-700">First Name*</h3>
                             <input
                                 className="bg-yellow-100 mb-4 px-4 py-2 border border-gray-300 rounded-lg w-full text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-600"
                                 required
@@ -59,7 +57,7 @@ const User_Signup = () => {
                         </div>
                     </div>
 
-                    <h3 className="text-lg font-medium mb-2 text-gray-700">Email</h3>
+                    <h3 className="text-lg font-medium mb-2 text-gray-700">Email*</h3>
                     <input
                         className="bg-yellow-100 mb-4 px-4 py-2 border border-gray-300 rounded-lg w-full text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-600"
                         required
@@ -69,17 +67,7 @@ const User_Signup = () => {
                         placeholder="Email"
                     />
 
-                    <h3 className="text-lg font-medium mb-2 text-gray-700">Phone</h3>
-                    <input
-                        className="bg-yellow-100 mb-4 px-4 py-2 border border-gray-300 rounded-lg w-full text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-600"
-                        required
-                        type="tel" // Use tel type for phone numbers
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        placeholder="Phone"
-                    />
-
-                    <h3 className="text-lg font-medium mb-2 text-gray-700">Password</h3>
+                    <h3 className="text-lg font-medium mb-2 text-gray-700">Password*</h3>
                     <input
                         className="bg-yellow-100 mb-7 px-4 py-2 border border-gray-300 rounded-lg w-full text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-600"
                         required

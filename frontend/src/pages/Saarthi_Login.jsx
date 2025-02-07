@@ -54,7 +54,7 @@ const Saarthi_Login = () => {
                             Login
                         </button>
                         <div className="text-center mt-4">
-                            <p className="text-gray-600">New Here?<Link to="/saarthi-signup" className="text-blue-600 hover:underline">Register as a Saarthi</Link></p>
+                            <p className="text-gray-600">New Saarthi? <Link to="/saarthi-signup" className="text-blue-600 hover:underline">Register as a Saarthi</Link></p>
                         </div>
                     </form>
                     <Link to="/login" 
