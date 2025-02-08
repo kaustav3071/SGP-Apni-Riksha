@@ -42,7 +42,7 @@ const Saarthi_Signup = () => {
             setSaarthi(data.saarthi);
             localStorage.setItem("token", data.token);
             alert("Saarthi created successfully");
-            navigate("/saarthi-home");
+            navigate("/saarthi-login");
         } else {
             alert("Saarthi not created");
         }

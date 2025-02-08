@@ -32,7 +32,7 @@ const User_Signup = () => {
             setUser(data.user);
             localStorage.setItem("token", data.token);
             alert("User created successfully");
-            navigate("/home");
+            navigate("/login");
         } else {
             alert("User not created");
         }
