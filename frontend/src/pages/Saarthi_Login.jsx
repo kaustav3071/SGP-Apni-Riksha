@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { SaarthiDataContext } from "../context/saarthiContext";
 
 const Saarthi_Login = () => {
 
@@ -7,14 +10,34 @@ const Saarthi_Login = () => {
     const [password, setPassword] = useState("");
     const [SaarthiData, setSaarthiData] = useState({});
 
-    const submitHandler = (e) => {
+
+    const navigate = useNavigate();
+    const { saarthi, setSaarthi } = React.useContext(SaarthiDataContext);
+
+    const submitHandler = async (e) => {
         e.preventDefault();
-        setSaarthiData({ 
+        const saarthiData = { 
             email:email, 
-            password:password });
+            password:password };
         setEmail("");
         setPassword("");
+
+        const response = await axios.post(import.meta.env.VITE_BASE_URL + "/saarthi/login", saarthiData);
+        if (response.status === 200) {
+            const data = response.data;
+            setSaarthi(data.saarthi);
+            localStorage.setItem("token", data.token);
+            alert("Saarthi logged in successfully");
+            navigate("/saarthi-home");
+        } else {
+            alert("Saarthi not logged in");
+        }
     };
+
+
+
+
+
     return (
             <div className="h-screen flex flex-col bg-yellow-100 p-7 justify-center items-center" style={{ fontFamily: 'sans-serif' }}>
                 <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md" style={{height: "550px"}}>

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
+import axios from "axios";
+import { SaarthiDataContext } from "../context/saarthiContext";
 
 const Saarthi_Signup = () => {
     const [firstName, setFirstName] = useState("");
@@ -12,20 +14,39 @@ const Saarthi_Signup = () => {
     const [vehicleType, setVehicleType] = useState("auto");
     const [SaarthiData,setSaarthiDat] = useState({});
 
-    const submitHandler = (e) => {
+    const navigate = useNavigate();
+
+    const { Saarthi, setSaarthi } = React.useContext(SaarthiDataContext);
+
+    const submitHandler = async (e) => {
         e.preventDefault();
-        setSaarthiDat({
+        const NewSaarthi = {
             fullName:{
                 firstName: firstName,
                 lastName: lastName,
             },
             email: email,
             password: password,
-            vehicleColor: vehicleColor,
-            plateNumber: plateNumber,
-            seatCapacity: seatCapacity,
-            vehicleType: vehicleType
-        });
+            vehicle:{
+                color: vehicleColor,
+                plate: plateNumber,
+                capacity: seatCapacity,
+                type: vehicleType
+            }
+        };
+
+        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/saarthi/register`, NewSaarthi);
+
+        if (response.status === 201) {
+            const data = response.data;
+            setSaarthi(data.saarthi);
+            localStorage.setItem("token", data.token);
+            alert("Saarthi created successfully");
+            navigate("/saarthi-home");
+        } else {
+            alert("Saarthi not created");
+        }
+
         setFirstName("");
         setLastName("");
         setEmail("");
@@ -59,7 +80,6 @@ const Saarthi_Signup = () => {
                             <h3 className="text-lg font-medium mb-2 text-gray-700">Last Name</h3>
                             <input
                                 className="bg-yellow-100 mb-4 px-4 py-2 border border-gray-300 rounded-lg w-full text-lg placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-600"
-                                required
                                 type="text"
                                 value={lastName}
                                 onChange={(e) => setLastName(e.target.value)}
@@ -149,13 +169,13 @@ const Saarthi_Signup = () => {
                     </div>
 
                     <button
-                        className="bg-green-600 text-white font-semibold rounded-lg py-2 px-4 mt-4 mb-7 w-full hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-600"
+                        className="bg-orange-600 text-white font-semibold rounded-lg py-2 px-4 mt-4 mb-7 w-full hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-600"
                         type="submit"
                     >
                         Create Account
                     </button>
                     <div className="text-center mt-4">
-                        <p className="text-gray-600">Already have an account? <Link to="/login" className="text-blue-600 hover:underline">Sign In</Link></p>
+                        <p className="text-gray-600">Already have an account? <Link to="/saarthi-login" className="text-blue-600 hover:underline">Sign In</Link></p>
                     </div>
                 </form>
                 <div className="mt-8 text-center text-sm text-gray-600">

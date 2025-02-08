@@ -27,6 +27,7 @@ const User_Login = () => {
         if (response.status === 200) {
             const data = response.data;
             setUser(data.user);
+            localStorage.setItem("token", data.token);
             alert("User logged in successfully");
             navigate("/home");
         } else {
@@ -63,7 +64,7 @@ const User_Login = () => {
                         onChange={(e) => {
                             setPassword(e.target.value)
                         }}
-                        placeholder="Password"
+                        placeholder="Password (min 6 characters)"
                     />
 
                     <button

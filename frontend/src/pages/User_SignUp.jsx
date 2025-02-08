@@ -30,6 +30,7 @@ const User_Signup = () => {
         if (response.status === 201) {
             const data= response.data;
             setUser(data.user);
+            localStorage.setItem("token", data.token);
             alert("User created successfully");
             navigate("/home");
         } else {
