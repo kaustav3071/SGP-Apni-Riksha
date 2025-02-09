@@ -3,14 +3,15 @@ import { motion } from "framer-motion";
 import APNI1 from "../assets/APNI1.png";
 import Map from "../assets/UberAuto-Delhi.jpg";
 import LocationSearchPanel from "../components/LocationSearchPanel";
+import VehiclePanel from "../components/VehiclePanel";
+import { Navigate } from "react-router-dom";
+import LookingForDriver from "../components/LookingForDriver";
+import WaitingForDriver from "../components/WaitingForDriver";
 
 const rideOptions = [
     { type: "Budget Friendly (8P)", time: 3, description: "Shared ride · Cost-effective", price: 80 },
     { type: "Shuttle (5P)", time: 2, description: "Group travel · Comfortable", price: 120 },
-    { type: "Special (1P)", time: 1, description: "Premium ride · Fast & private", price: 200 },
-    { type: "Mini Auto (3P)", time: 2, description: "Compact ride · Budget-friendly", price: 150 },
-    { type: "Luxury Auto (2P)", time: 1, description: "Luxury experience · Extra comfort", price: 250 },
-    { type: "Express Ride (1P)", time: 1, description: "No stops · Direct trip", price: 220 }
+    { type: "Special (1P)", time: 1, description: "Premium ride · Fast & private", price: 200 }
 ];
 
 const Home = () => {
@@ -20,29 +21,30 @@ const Home = () => {
     const [showPickupPanel, setShowPickupPanel] = useState(false);
     const [showDestinationPanel, setShowDestinationPanel] = useState(false);
     const [showAutoDetails, setShowAutoDetails] = useState(false);
+    const [selectedRide, setSelectedRide] = useState(null);
+    const [showLookingForDriver, setShowLookingForDriver] = useState(false);
+
+
+
 
     const submitHandler = (e) => {
         e.preventDefault();
         console.log("Pickup:", pickupLocation, "Destination:", destinationLocation);
-        setShowAutoDetails(true); // Show auto details
+        setShowAutoDetails(true);
     };
 
     return (
         <div className="h-screen flex flex-col bg-yellow-100 relative" style={{ fontFamily: 'sans-serif' }}>
-            {/* Logo */}
             <img src={APNI1} alt="Logo" className="w-16 absolute top-2 left-3 z-10" />
-
-            {/* Map */}
+            
             {!isExpanded && !showAutoDetails && (
                 <div className="w-full h-2/3 relative">
                     <img src={Map} alt="Map" className="w-full h-full object-cover rounded-b-lg shadow-md" />
                 </div>
             )}
 
-            {/* Yellow Background when Auto Details Pop-up is open */}
             {showAutoDetails && <div className="w-full h-2/3 bg-yellow-100"></div>}
 
-            {/* Input section (Hidden when Auto Details Pop-up is open) */}
             {!showAutoDetails && (
                 <motion.div
                     initial={{ height: "33%" }}
@@ -73,7 +75,6 @@ const Home = () => {
                     </h4>
 
                     <form onSubmit={submitHandler} className="relative">
-                        {/* Pickup Input */}
                         <div className="relative w-full my-4">
                             <img
                                 src="https://img.icons8.com/ios-filled/50/40C057/marker.png"
@@ -91,7 +92,6 @@ const Home = () => {
                             />
                         </div>
 
-                        {/* Drop Input */}
                         <div className="relative w-full my-4">
                             <img
                                 src="https://img.icons8.com/ios-filled/50/FA5252/marker.png"
@@ -105,11 +105,10 @@ const Home = () => {
                                 onBlur={() => setTimeout(() => setShowDestinationPanel(false), 200)}
                                 type="text"
                                 placeholder="Enter your destination"
-                                className="w-full p-4 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 pl-12"
+                                className="pl-12 w-full p-4 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                             />
                         </div>
 
-                        {/* Find Your Saarthi Button */}
                         {isExpanded && (
                             <motion.button
                                 type="submit"
@@ -121,26 +120,11 @@ const Home = () => {
                         )}
                     </form>
 
-                    {/* Show Pickup Location Panel */}
-                    <LocationSearchPanel
-                        isVisible={showPickupPanel}
-                        onSelect={(location) => {
-                            setPickupLocation(location);
-                            setShowPickupPanel(false);
-                        }}
-                    />
-                    {/* Show Destination Location Panel */}
-                    <LocationSearchPanel
-                        isVisible={showDestinationPanel}
-                        onSelect={(location) => {
-                            setDestinationLocation(location);
-                            setShowDestinationPanel(false);
-                        }}
-                    />
+                    <LocationSearchPanel isVisible={showPickupPanel} onSelect={(location) => setPickupLocation(location)} />
+                    <LocationSearchPanel isVisible={showDestinationPanel} onSelect={(location) => setDestinationLocation(location)} />
                 </motion.div>
             )}
 
-            {/* Auto Details Pop-up */}
             {showAutoDetails && (
                 <motion.div
                     initial={{ y: "100%" }}
@@ -149,17 +133,18 @@ const Home = () => {
                     transition={{ duration: 0.5, ease: "easeOut" }}
                     className="fixed bottom-0 left-0 w-full bg-white shadow-2xl rounded-t-lg p-6"
                 >
-                    <button
-                        className="absolute top-4 right-4 text-gray-600"
-                        onClick={() => setShowAutoDetails(false)}
-                    >
+                    <button className="absolute top-4 right-4 text-gray-600" onClick={() => setShowAutoDetails(false)}>
                         ❌
                     </button>
 
                     <h2 className="text-xl font-bold text-gray-800 mb-4 text-center">Available Saarthi's For You</h2>
 
                     {rideOptions.map((ride, index) => (
-                        <div key={index} className="flex items-center justify-between p-4 bg-green-100 rounded-lg mb-3">
+                        <div
+                            key={index}
+                            className="flex items-center justify-between p-4 bg-green-100 rounded-lg mb-3 cursor-pointer"
+                            onClick={() => setSelectedRide(ride)}
+                        >
                             <div className="flex items-center gap-3">
                                 <img src="https://img.icons8.com/color/48/auto-rickshaw.png" alt="auto-rickshaw" className="w-10 h-10"/>
                                 <div>
@@ -171,6 +156,23 @@ const Home = () => {
                         </div>
                     ))}
                 </motion.div>
+            )}
+
+            {/* Show Vehicle Panel */}
+            <VehiclePanel
+                ride={selectedRide}
+                onClose={() => setSelectedRide(null)}
+                onConfirmRide={() => setShowLookingForDriver(true)}
+
+            />
+
+            {/* Show Looking for Driver Panel */}
+            {showLookingForDriver && (
+                <LookingForDriver
+                    ride={selectedRide}
+                    onCancel={() => setShowLookingForDriver(false)}
+
+                />
             )}
         </div>
     );

@@ -19,7 +19,7 @@ const LocationSearchPanel = ({ isVisible, onSelect }) => {
                     locationRecommendations.map((location, index) => (
                         <li 
                             key={index} 
-                            className="p-3 bg-green-100 border border-gray-300 shadow-md rounded-md mb-2 cursor-pointer flex items-center gap-2 font-medium hover:bg-gray-200 transition"
+                            className="p-3 bg-green-100 shadow-md rounded-md mb-2 cursor-pointer flex items-center gap-2 font-medium hover:bg-gray-200 transition"
                             onClick={() => onSelect(location)}
                         >
                             <img 
