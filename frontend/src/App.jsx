@@ -13,6 +13,7 @@ import SaarthiProtectedWrapper from "./pages/saarthiProtectedWrapper";
 import SaarthiLogout from "./pages/saarthiLogout";  
 // import Payment from "./pages/Payment";  // ✅ Import Payment page
 import Riding from "./pages/Riding";
+import CaptainRiding from "./pages/CaptainRiding";
 
 const App = () => {
     return (
@@ -24,6 +25,7 @@ const App = () => {
                 <Route path ="/riding" element={<Riding />} />
                 <Route path="/saarthi-login" element={<Saarthi_Login />} />
                 <Route path="/saarthi-signup" element={<Saarthi_SignUp />} />
+                <Route path="/captainRiding" element={<CaptainRiding />} />
                 
                 <Route path="/home" element={
                     <UserProtectedWrapper>
