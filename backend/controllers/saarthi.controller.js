@@ -1,7 +1,7 @@
 const SaarthiModel = require('../models/saarthi.model.js');
 const { validationResult } = require('express-validator');
-const saarthiService = require('../services/saarthi.service.js');
 const blackListTokenModel = require('../models/blackListToken.model.js');
+
 // Register a new saarthi
 
 module.exports.registerSaarthi = async (req, res, next) => {
