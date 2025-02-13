@@ -57,10 +57,10 @@ npm run dev
 │── README.md
 ```
 ### **📌 Future Enhancements**
-Online Payments (UPI, Paytm, GPay)
-AI-based Ride Suggestions
-Multilingual Support
-Expand to Nearby Cities
+- Online Payments (UPI, Paytm, GPay)<br>
+- AI-based Ride Suggestions<br>
+- Multilingual Support<br>
+- Expand to Nearby Cities<br>
 
 ## 👥 Contributors  
 We are a team of four developers working on this project:  
