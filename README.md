@@ -53,6 +53,7 @@ npm run dev
 │── /frontend   # React.js Frontend
 │── /backend    # Node.js Backend\
 │── .gitignore
+|── LICENSE
 │── README.md
 ```
 ### **📌 Future Enhancements**
@@ -79,7 +80,7 @@ Contributions are welcome! Feel free to fork, create a branch, and submit a pull
 This project is licensed under the MIT License.
 
 ### **📬 Contact**
-📧 Email: kdas.portfolio@gmail.com
-🔗 LinkedIn: [**Linkedln**](https://www.linkedin.com/in/kaustavdas1703/)
+📧 Email: kdas.portfolio@gmail.com<br>
+🔗 LinkedIn: [**Linkedln**](https://www.linkedin.com/in/kaustavdas1703/)<br>
 🌐 Website: [**My Portfolio**](https://kaustavdas.up.railway.app/)
 
