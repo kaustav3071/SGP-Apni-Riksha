@@ -48,12 +48,13 @@ cd frontend
 npm run dev
 ```
 ### **🏗️ Project Structure**
+```bash
 /SGP-APNI-RICKSAHW
 │── /frontend   # React.js Frontend
 │── /backend    # Node.js Backend\
 │── .gitignore
 │── README.md
-
+```
 ### **📌 Future Enhancements**
 Online Payments (UPI, Paytm, GPay)
 AI-based Ride Suggestions
