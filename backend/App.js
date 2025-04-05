@@ -7,6 +7,8 @@ const connectDB = require('./db/db');
 const userRoutes = require('./routes/user.routes');
 const cookieParser = require('cookie-parser');
 const saarthiRoutes = require('./routes/saarthi.routes');
+const mapsRoutes = require('./routes/maps.routes');
+
 
 app.use(cookieParser());
 connectDB();
@@ -23,5 +25,6 @@ app.use('/users', userRoutes);
 
 app.use('/saarthi', saarthiRoutes);
 
+app.use('/maps', mapsRoutes);
 
 module.exports = app;
