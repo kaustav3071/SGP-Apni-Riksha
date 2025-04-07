@@ -1,5 +1,4 @@
-# up to 7.45.56 min
-# CURRENTLY IN PROGRESS......
+## CURRENTLY IN PROGRESS......
 # 🛺 Apni Riksha - Auto Rickshaw Booking System
 
 ### **MERN Stack | Real-Time Ride Booking | Map Integration**
