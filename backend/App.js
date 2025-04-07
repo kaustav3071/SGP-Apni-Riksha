@@ -8,6 +8,7 @@ const userRoutes = require('./routes/user.routes');
 const cookieParser = require('cookie-parser');
 const saarthiRoutes = require('./routes/saarthi.routes');
 const mapsRoutes = require('./routes/maps.routes');
+const rideRoutes = require('./routes/ride.routes');
 
 
 app.use(cookieParser());
@@ -26,5 +27,7 @@ app.use('/users', userRoutes);
 app.use('/saarthi', saarthiRoutes);
 
 app.use('/maps', mapsRoutes);
+
+app.use('/ride', rideRoutes);
 
 module.exports = app;
