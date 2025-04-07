@@ -13,4 +13,9 @@ router.get(
 
 module.exports = router;
 
-router.get('/get-distance', authMiddleware.authUser, mapController.getDistance);
+router.get('/get-distance-time',
+    query('origin').notEmpty().withMessage('Origin is required'),
+    query('destination').notEmpty().withMessage('Destination is required'),
+    authMiddleware.authUser,
+    mapController.getDistanceTime // Updated to match the function name in maps.controller.js
+);
