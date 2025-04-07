@@ -11,11 +11,17 @@ router.get(
     mapController.getCoordinate // Updated to match the function name in maps.controller.js
 );
 
-module.exports = router;
-
 router.get('/get-distance-time',
     query('origin').notEmpty().withMessage('Origin is required'),
     query('destination').notEmpty().withMessage('Destination is required'),
     authMiddleware.authUser,
     mapController.getDistanceTime // Updated to match the function name in maps.controller.js
 );
+
+router.get('/get-suggestions',
+    query('address').notEmpty().withMessage('Address is required'),
+    authMiddleware.authUser,
+    mapController.getSuggestion // Updated to match the function name in maps.controller.js
+)
+
+module.exports = router;
