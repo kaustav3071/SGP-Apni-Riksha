@@ -20,7 +20,7 @@ const LocationSearchPanel = ({ isVisible, onSelect, searchQuery = "" }) => {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
                     },
                 });
-                setSuggestions(response.data.map(item => item.title) || []);
+                setSuggestions(response.data.slice(0, 5).map(item => item.title) || []);
             } catch (error) {
                 console.error("Error fetching suggestions:", error);
                 setSuggestions([]);
