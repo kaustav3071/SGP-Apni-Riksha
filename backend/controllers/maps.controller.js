@@ -49,7 +49,6 @@ module.exports.getDistanceTime = async (req, res) => {
 
 module.exports.getSuggestion = async (req, res) => {
     const { address } = req.query;
-    console.log("Address received:", address); // Debugging line
 
     if (!address) {
         return res.status(400).json({ message: 'Address is required' });
@@ -62,7 +61,6 @@ module.exports.getSuggestion = async (req, res) => {
 
     try {
         const response = await axios.get(url, { timeout: 5000 }); // Timeout after 5 seconds
-        console.log("API Response:", response.data); // Debugging line
         if (response.data.items) {
             return res.status(200).json(response.data.items);
         } else {
