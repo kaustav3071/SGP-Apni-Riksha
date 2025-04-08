@@ -120,8 +120,16 @@ const Home = () => {
                         )}
                     </form>
 
-                    <LocationSearchPanel isVisible={showPickupPanel} onSelect={(location) => setPickupLocation(location)} />
-                    <LocationSearchPanel isVisible={showDestinationPanel} onSelect={(location) => setDestinationLocation(location)} />
+                    <LocationSearchPanel
+                        isVisible={showPickupPanel}
+                        onSelect={(location) => setPickupLocation(location)}
+                        searchQuery={pickupLocation} // Pass pickupLocation as searchQuery
+                    />
+                    <LocationSearchPanel
+                        isVisible={showDestinationPanel}
+                        onSelect={(location) => setDestinationLocation(location)}
+                        searchQuery={destinationLocation} // Pass destinationLocation as searchQuery
+                    />
                 </motion.div>
             )}
 
