@@ -67,7 +67,7 @@ We are a team of four developers working on this project:
 | Name                | GitHub Profile                               | Role                         |
 |---------------------|----------------------------------------------|------------------------------|
 | **KAUSTAV DAS**     | [GitHub](https://github.com/kaustav3071)     | Backend, Frontend & Database |
-| **KURESH GARBADA**  | [GitHub]([https://github.com/Kuresh-Garbada) | Backend                      |
+| **KURESH GARBADA**  | [GitHub](https://github.com/Kuresh-Garbada) | Backend                      |
 | **BHAVYA GODHAVIYA**| [GitHub](https://github.com/Bhavya-Godhaviya)| Diagrams                     |
 | **HARSH GOSWAMI**   | [GitHub](https://github.com/Harshgoswamigiri)| Documentations               |
 
