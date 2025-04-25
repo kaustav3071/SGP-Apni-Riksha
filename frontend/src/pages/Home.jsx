@@ -4,15 +4,8 @@ import APNI1 from "../assets/APNI1.png";
 import Map from "../assets/UberAuto-Delhi.jpg";
 import LocationSearchPanel from "../components/LocationSearchPanel";
 import VehiclePanel from "../components/VehiclePanel";
-import { Navigate } from "react-router-dom";
 import LookingForDriver from "../components/LookingForDriver";
-import WaitingForDriver from "../components/WaitingForDriver";
-
-const rideOptions = [
-    { type: "Budget Friendly (8P)", time: 3, description: "Shared ride · Cost-effective", price: 80 },
-    { type: "Shuttle (5P)", time: 2, description: "Group travel · Comfortable", price: 120 },
-    { type: "Special (1P)", time: 1, description: "Premium ride · Fast & private", price: 200 }
-];
+import axios from "axios";
 
 const Home = () => {
     const [pickupLocation, setPickupLocation] = useState("");
@@ -24,19 +17,59 @@ const Home = () => {
     const [selectedRide, setSelectedRide] = useState(null);
     const [showLookingForDriver, setShowLookingForDriver] = useState(false);
 
+    const [rideOptions, setRideOptions] = useState([
+        { type: "Shuttle (5P)", time: 2, description: "Group travel · Comfortable", price: 0 },
+        { type: "Budget Friendly (8P)", time: 3, description: "Shared ride · Cost-effective", price: 0 },
+        { type: "Special (1P)", time: 1, description: "Premium ride · Fast & private", price: 0 },
+    ]);
 
-
-
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault();
-        console.log("Pickup:", pickupLocation, "Destination:", destinationLocation);
-        setShowAutoDetails(true);
+
+        if (!pickupLocation || !destinationLocation) {
+            alert("Please enter both pickup and destination locations.");
+            return;
+        }
+
+        try {
+            const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/rides/get-fare`, {
+                params: {
+                    pickupLocation,
+                    dropoffLocation: destinationLocation,
+                },
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            });
+
+            console.log("Fare response:", response.data); // Debugging line
+
+            // Update rideOptions with the fare for each ride type
+            const updatedRideOptions = rideOptions.map((ride) => {
+                const rideKey = ride.type.toLowerCase().split(" ")[0]; // Extract the ride type key (e.g., "budget", "shuttle", "special")
+                return {
+                    ...ride,
+                    price: Math.round(response.data[rideKey]), // Set the fare for the ride type
+                };
+            });
+
+            console.log("Updated Ride Options:", updatedRideOptions); // Debugging line
+            setRideOptions(updatedRideOptions); // Update the state with real-time fares
+            setShowAutoDetails(true); // Show ride options
+        } catch (error) {
+            console.error("Error calculating fare:", error);
+            alert("Failed to calculate fare. Please try again.");
+        }
+    };
+
+    const confirmRide = () => {
+        setShowLookingForDriver(true); // Show the "Looking for Driver" panel
     };
 
     return (
         <div className="h-screen flex flex-col bg-yellow-100 relative" style={{ fontFamily: 'sans-serif' }}>
             <img src={APNI1} alt="Logo" className="w-16 absolute top-2 left-3 z-10" />
-            
+
             {!isExpanded && !showAutoDetails && (
                 <div className="w-full h-2/3 relative">
                     <img src={Map} alt="Map" className="w-full h-full object-cover rounded-b-lg shadow-md" />
@@ -151,16 +184,16 @@ const Home = () => {
                         <div
                             key={index}
                             className="flex items-center justify-between p-4 bg-green-100 rounded-lg mb-3 cursor-pointer"
-                            onClick={() => setSelectedRide(ride)}
+                            onClick={() => setSelectedRide(ride)} // Set the selected ride
                         >
                             <div className="flex items-center gap-3">
-                                <img src="https://img.icons8.com/color/48/auto-rickshaw.png" alt="auto-rickshaw" className="w-10 h-10"/>
+                                <img src="https://img.icons8.com/color/48/auto-rickshaw.png" alt="auto-rickshaw" className="w-10 h-10" />
                                 <div>
                                     <h3 className="font-bold">{ride.type}</h3>
                                     <p className="text-black text-sm">{ride.time} mins away · {ride.description}</p>
                                 </div>
                             </div>
-                            <span className="font-bold text-lg">₹{ride.price}.00</span>
+                            <span className="font-bold text-lg">₹{ride.price}</span>
                         </div>
                     ))}
                 </motion.div>
@@ -170,8 +203,7 @@ const Home = () => {
             <VehiclePanel
                 ride={selectedRide}
                 onClose={() => setSelectedRide(null)}
-                onConfirmRide={() => setShowLookingForDriver(true)}
-
+                onConfirmRide={confirmRide}
             />
 
             {/* Show Looking for Driver Panel */}
@@ -179,7 +211,6 @@ const Home = () => {
                 <LookingForDriver
                     ride={selectedRide}
                     onCancel={() => setShowLookingForDriver(false)}
-
                 />
             )}
         </div>

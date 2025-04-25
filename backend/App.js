@@ -28,6 +28,8 @@ app.use('/saarthi', saarthiRoutes);
 
 app.use('/maps', mapsRoutes);
 
+app.use('/rides', rideRoutes);
+
 app.use('/ride', rideRoutes);
 
 module.exports = app;
