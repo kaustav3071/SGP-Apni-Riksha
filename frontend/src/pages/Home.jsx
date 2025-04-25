@@ -62,8 +62,31 @@ const Home = () => {
         }
     };
 
-    const confirmRide = () => {
-        setShowLookingForDriver(true); // Show the "Looking for Driver" panel
+    const confirmRide = async () => {
+        if (!pickupLocation || !destinationLocation || !selectedRide) {
+            alert("Please select a ride and enter valid locations.");
+            return;
+        }
+    
+        try {
+            const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/rides/create-ride`, {
+                pickupLocation,
+                dropoffLocation: destinationLocation,
+                rideType: selectedRide.type.toLowerCase().split(" ")[0], // Extract ride type (e.g., "shuttle", "budget", "special")
+                fare: selectedRide.price,
+            }, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`, // Pass user token
+                },
+            });
+    
+            console.log("Ride Details:", response.data); // Log the ride details in the console
+            alert("Ride confirmed!");
+            setShowLookingForDriver(true); // Show the "Looking for Driver" panel
+        } catch (error) {
+            console.error("Error confirming ride:", error);
+            alert("Failed to confirm ride. Please try again.");
+        }
     };
 
     return (

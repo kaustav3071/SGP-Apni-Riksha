@@ -73,12 +73,13 @@ module.exports.createRide = async ({
             pickupLocation,
             dropoffLocation,
             rideType,
-            otp:getOtp(6),
-            fare: rideFare[rideType]
+            otp: getOtp(6),
+            fare: rideFare[rideType],
+            status: "pending", // Default status
         });
         await ride.save();
-        return ride;
+        return ride; // Return the created ride
     } catch (error) {
         throw error;
     }
-}
+};
