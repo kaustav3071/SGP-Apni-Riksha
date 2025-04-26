@@ -55,9 +55,8 @@ module.exports.getSuggestion = async (req, res) => {
     }
 
     const apiKey = process.env.TIME_FINDING;
-    console.log("API Key:", apiKey); // Debugging line
     const url = `https://api.nextbillion.io/autosuggest?q=${encodeURIComponent(address)}&key=${apiKey}`;
-    console.log("Request URL:", url); // Debugging line
+    
 
     try {
         const response = await axios.get(url, { timeout: 5000 }); // Timeout after 5 seconds

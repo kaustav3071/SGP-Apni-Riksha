@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-import { SaarthiDataContext } from "../context/saarthiContext";
+import { SaarthiDataContext } from "../context/SaarthiContext";
 import axios from "axios";
 
 const SaarthiLogout = () => {

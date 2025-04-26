@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { SaarthiDataContext } from "../context/saarthiContext";
+import { SaarthiDataContext } from "../context/SaarthiContext";
 
 const Saarthi_Login = () => {
 

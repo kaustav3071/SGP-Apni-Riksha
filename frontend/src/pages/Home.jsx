@@ -10,7 +10,7 @@ import { SocketContext } from "../context/socketContext";
 import { useEffect } from "react";
 import { useContext } from "react";
 import { UserDataContext } from "../context/userContext";
-import  SaarthiContext  from "../context/saarthiContext";
+import  SaarthiContext  from "../context/SaarthiContext";
 
 
 const Home = () => {

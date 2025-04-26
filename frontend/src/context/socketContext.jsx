@@ -30,6 +30,7 @@ const SocketProvider = ({ children }) => {
 
     const sendMessage = (eventName, message) => {
         if (socket) {
+            console.log(`Sending message: ${message} to event: ${eventName}`);
             socket.emit(eventName, message);
         } else {
             console.error("Socket is not connected");

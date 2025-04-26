@@ -1,34 +1,35 @@
-import { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 
 export const SaarthiDataContext = createContext();
 
 const SaarthiContext = ({ children }) => {
-    const [saarthi, setSaarthi] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const [saarthi, setSaarthi] = useState({
+        fullName: {
+            firstName: "",
+            lastName: "",
+        },
+        email: "",
+        _id: "",
+        socketId: null,
+        status: "offline",
+        vehicle: {
+            color: "",
+            plate: "",
+            capacity: 0,
+            type: "",
+        },
+        location: {
+            latitude: null,
+            longitude: null,
+        },
+    });
 
-    const updateSaarthi = async (newSaarthi) => {
-        setIsLoading(true);
-        try {
-            setSaarthi(newSaarthi);
-        } catch (error) {
-            setError(error);
-        }
-        setIsLoading(false);
-    };
-
-    const value = {
-        saarthi,
-        setSaarthi,
-        updateSaarthi,
-        isLoading,
-        setIsLoading,
-        error,
-        setError,
-    };
+    useEffect(() => {
+        console.log("Saarthi context updated:", saarthi);
+    }, [saarthi]);
 
     return (
-        <SaarthiDataContext.Provider value={value}>
+        <SaarthiDataContext.Provider value={{ saarthi, setSaarthi }}>
             {children}
         </SaarthiDataContext.Provider>
     );

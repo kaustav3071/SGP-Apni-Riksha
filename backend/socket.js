@@ -16,42 +16,74 @@ function initializeSocket(server) {
     io.on('connection', (socket) => {
         console.log(`Client connected: ${socket.id}`);
 
+        // Handle 'join' event
         socket.on('join', async (data) => {
             const { userId, userType } = data; // Destructure userId and userType from data
-            console.log(`User with ID ${userId} joined as ${userType}`); // Corrected log statement
-        
-            if (userType === 'user') {
-                await userModel.findByIdAndUpdate(userId, { socketId: socket.id });
-            } else if (userType === 'saarthi') {
-                await saarthiModel.findByIdAndUpdate(userId, { socketId: socket.id });
-                socket.join(userId); // Join the saarthi's room
-        
-                socket.on('message', (msg) => {
-                    console.log(`Message from ${userId}: ${msg}`);
-                    io.to(userId).emit('message', msg); // Send message to the specific saarthi
-                });
-        
-                socket.on('disconnect', () => {
-                    console.log(`Saarthi disconnected: ${socket.id}`);
-                });
+            console.log(`User with ID ${userId} joined as ${userType}`);
+            console.log(`Socket ID: ${socket.id}`);
+
+            try {
+                if (userType === 'user') {
+                    const result = await userModel.findByIdAndUpdate(userId, { socketId: socket.id }, { new: true });
+                    if (!result) {
+                        console.error(`User with ID ${userId} not found`);
+                    } else {
+                        console.log("User socketId updated:", result);
+                    }
+                } else if (userType === 'saarthi') {
+                    const result = await saarthiModel.findByIdAndUpdate(userId, { socketId: socket.id }, { new: true });
+                    if (!result) {
+                        console.error(`Saarthi with ID ${userId} not found`);
+                    } else {
+                        console.log("Saarthi socketId updated:", result);
+                    }
+                    socket.join(userId); // Join the Saarthi's room
+                }
+            } catch (error) {
+                console.error("Error updating socketId:", error);
             }
         });
-        
-        socket.on('testEvent', (data) => {
-            console.log('Test event received:', data);
-        });
 
-        socket.on('disconnect', () => {
+        // Handle Saarthi disconnection
+        socket.on('disconnect', async () => {
             console.log(`Client disconnected: ${socket.id}`);
+            try {
+                // Clear socketId for both users and Saarthis
+                const userResult = await userModel.findOneAndUpdate({ socketId: socket.id }, { socketId: null });
+                const saarthiResult = await saarthiModel.findOneAndUpdate({ socketId: socket.id }, { socketId: null });
+
+                if (userResult) {
+                    console.log(`User socketId cleared for ID: ${userResult._id}`);
+                }
+                if (saarthiResult) {
+                    console.log(`Saarthi socketId cleared for ID: ${saarthiResult._id}`);
+                }
+            } catch (error) {
+                console.error("Error clearing socketId on disconnect:", error);
+            }
         });
 
-        socket.on('message', (msg) => {
-            console.log(`Broadcast message: ${msg}`);
-            io.emit('message', msg); // Broadcast the message to all connected clients
+        // Handle ride request
+        socket.on("ride-request", (data) => {
+            console.log("Ride request received:", data);
+            io.to(data.saarthiId).emit("ride-request", data); // Send ride request to specific Saarthi
+        });
+
+        // Handle ride acceptance
+        socket.on("ride-accepted", (data) => {
+            console.log("Ride accepted by Saarthi:", data);
+            io.to(data.rideId).emit("ride-accepted", data); // Notify user about ride acceptance
+        });
+
+        // Handle ride cancellation
+        socket.on("ride-cancelled", (data) => {
+            console.log("Ride cancelled by Saarthi:", data);
+            io.to(data.rideId).emit("ride-cancelled", data); // Notify user about ride cancellation
         });
     });
 }
 
+// Function to send a message to a specific socket ID
 function sendMessagetoSocketId(socketId, message) {
     if (io) {
         io.to(socketId).emit('message', message);

@@ -22,14 +22,13 @@ module.exports.authUser = async (req, res, next) => {
         console.log("Decoded token:", decoded); 
 
         const user = await userModel.findById(decoded._id);
-        console.log("User found in database:", user); 
+        
 
         if (!user) {
             return res.status(401).json({ message: "Unauthorized, user not found" });
         }
 
         req.user = user; // Attach user to request
-        console.log("Authenticated user:", req.user); // Log after assignment
         next();
     } catch (error) {
         console.error("Authentication error:", error.message);

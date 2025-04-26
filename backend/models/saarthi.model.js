@@ -28,7 +28,8 @@ const saarthiSchema = new mongoose.Schema({
         select : false,
     },
     socketId : {
-        type : String
+        type : String,
+        default : null,
     },
     status: {
         type: String,
