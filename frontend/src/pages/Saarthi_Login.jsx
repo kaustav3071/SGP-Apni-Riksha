@@ -16,21 +16,24 @@ const Saarthi_Login = () => {
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        const saarthiData = { 
-            email:email, 
-            password:password };
+        const saarthiData = { email, password };
         setEmail("");
         setPassword("");
 
-        const response = await axios.post(import.meta.env.VITE_BASE_URL + "/saarthi/login", saarthiData);
-        if (response.status === 200) {
-            const data = response.data;
-            setSaarthi(data.saarthi);
-            localStorage.setItem("token", data.token);
-            alert("Saarthi logged in successfully");
-            navigate("/saarthi-home");
-        } else {
-            alert("Saarthi not logged in");
+        try {
+            const response = await axios.post(import.meta.env.VITE_BASE_URL + "/saarthi/login", saarthiData);
+    
+            if (response.status === 200) {
+                const data = response.data;
+                setSaarthi(data.saarthi); // Set Saarthi details in context
+                localStorage.setItem("token", data.token); // Store token in local storage
+                localStorage.setItem("saarthi", JSON.stringify(data.saarthi)); // Store Saarthi details in local storage
+                alert("Saarthi logged in successfully");
+                navigate("/saarthi-home");
+            }
+        } catch (error) {
+            console.error("Login failed:", error.response?.data || error.message);
+            alert(error.response?.data?.message || "Saarthi not logged in");
         }
     };
 

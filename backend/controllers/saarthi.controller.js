@@ -59,23 +59,34 @@ module.exports.loginSaarthi = async (req, res, next) => {
 
     const { email, password } = req.body;
 
-    const saarthi = await SaarthiModel.findOne({ email }).select("+password");
+    try {
+        const saarthi = await SaarthiModel.findOne({ email }).select("+password");
 
-    if (!saarthi) {
-        return res.status(401).json({ message: "Invalid email or password" });
+        if (!saarthi) {
+            return res.status(401).json({ message: "Invalid email or password" });
+        }
+
+        const isMatch = await saarthi.comparePassword(password);
+
+        if (!isMatch) {
+            return res.status(401).json({ message: "Invalid email or password" });
+        }
+
+        const token = saarthi.generateAuthToken();
+
+        res.status(200).json({
+            token,
+            saarthi: {
+                fullName: saarthi.fullName,
+                email: saarthi.email,
+                vehicle: saarthi.vehicle,
+            },
+        });
+    } catch (error) {
+        console.error("Error during login:", error);
+        res.status(500).json({ message: "Internal server error" });
     }
-
-    const isMatch = await saarthi.comparePassword(password);
-
-    if (!isMatch) {
-        return res.status(401).json({ message: "Invalid email or password" });
-    }
-
-    const token = saarthi.generateAuthToken();
-    res.cookie('token', token);
-
-    res.status(200).json({ token, user: saarthi });
-}
+};
 
 // Profile a saarthi
 

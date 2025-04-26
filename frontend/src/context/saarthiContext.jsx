@@ -1,13 +1,11 @@
-import { createContext ,useState, useContext } from "react";
-
+import { createContext, useState } from "react";
 
 export const SaarthiDataContext = createContext();
 
-const SaarthiContext = ({children}) => {
-
-    const [saarthi,setSaarthi] = useState(null);
-    const [ isLoading , setIsLoading ] = useState(false);
-    const [ error , setError ] = useState(null);
+const SaarthiContext = ({ children }) => {
+    const [saarthi, setSaarthi] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     const updateSaarthi = async (newSaarthi) => {
         setIsLoading(true);
@@ -17,7 +15,7 @@ const SaarthiContext = ({children}) => {
             setError(error);
         }
         setIsLoading(false);
-    }
+    };
 
     const value = {
         saarthi,
@@ -26,14 +24,14 @@ const SaarthiContext = ({children}) => {
         isLoading,
         setIsLoading,
         error,
-        setError
-    }
+        setError,
+    };
 
-    return <div>
-        <SaarthiDataContext.Provider value={{ saarthi, setSaarthi }}>
+    return (
+        <SaarthiDataContext.Provider value={value}>
             {children}
         </SaarthiDataContext.Provider>
-    </div>;
-    }
+    );
+};
 
 export default SaarthiContext;

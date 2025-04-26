@@ -1,8 +1,17 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
+import { useEffect, useState } from "react";
 
 const SaarthiDetails = () => {
+    const [driverName, setDriverName] = useState("");
+
+    useEffect(() => {
+        // Fetch Saarthi details from local storage
+        const saarthi = JSON.parse(localStorage.getItem("saarthi"));
+        if (saarthi && saarthi.fullName) {
+            setDriverName(`${saarthi.fullName.firstName} ${saarthi.fullName.lastName || ""}`);
+        }
+    }, []);
     return (
         <div className="w-full h-[45%] bg-orange-300 p-5 shadow-lg rounded-t-2xl backdrop-blur-md">
                 {/* Driver Info */}
@@ -16,7 +25,7 @@ const SaarthiDetails = () => {
                     
                     {/* Name & Level */}
                     <div>
-                        <h3 className="text-xl font-semibold text-black">Rohit Sharma</h3>
+                        <h3 className="text-xl font-semibold text-black capitalize">{driverName || "Driver Name"}</h3>
                         <p className="text-gray-900 text-sm">Basic Level</p>
                     </div>
                 </div>

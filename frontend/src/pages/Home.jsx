@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { motion } from "framer-motion";
 import APNI1 from "../assets/APNI1.png";
 import Map from "../assets/UberAuto-Delhi.jpg";
@@ -6,6 +6,12 @@ import LocationSearchPanel from "../components/LocationSearchPanel";
 import VehiclePanel from "../components/VehiclePanel";
 import LookingForDriver from "../components/LookingForDriver";
 import axios from "axios";
+import { SocketContext } from "../context/socketContext";
+import { useEffect } from "react";
+import { useContext } from "react";
+import { UserDataContext } from "../context/userContext";
+import  SaarthiContext  from "../context/saarthiContext";
+
 
 const Home = () => {
     const [pickupLocation, setPickupLocation] = useState("");
@@ -16,6 +22,20 @@ const Home = () => {
     const [showAutoDetails, setShowAutoDetails] = useState(false);
     const [selectedRide, setSelectedRide] = useState(null);
     const [showLookingForDriver, setShowLookingForDriver] = useState(false);
+    
+    const { sendMessage, receiveMessage } = useContext(SocketContext);
+    console.log("SocketContext:", { sendMessage, receiveMessage });
+    const { user } = useContext(UserDataContext); // Access user context
+    
+    useEffect(() => {
+        console.log("User context:", user);
+        if (user && user._id) {
+            console.log("Calling sendMessage...");
+            sendMessage("join", { userType: "user", userId: user._id });
+        }
+    }, [user]);
+
+
 
     const [rideOptions, setRideOptions] = useState([
         { type: "Shuttle (5P)", time: 2, description: "Group travel · Comfortable", price: 0 },

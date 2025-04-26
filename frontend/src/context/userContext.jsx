@@ -1,23 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, createContext } from "react";
 
-export const UserDataContext = React.createContext()
+export const UserDataContext = createContext();
 
-const UserContext = ({children}) => {
+const UserContext = ({ children }) => {
+    const [user, setUser] = useState({
+        email: "",
+        fullName: {
+            firstName: "",
+            lastName: "",
+        },
+        _id: "", // Add _id to match the destructuring in Home.jsx
+    });
 
-    const [user,setUser] = useState({
-        email:"",
-        fullName:{
-            firstName:"",
-            lastName:""
-        }
-
-    })
-
-    return <div>
+    return (
         <UserDataContext.Provider value={{ user, setUser }}>
             {children}
         </UserDataContext.Provider>
-    </div>;
-    }
+    );
+};
 
 export default UserContext;
