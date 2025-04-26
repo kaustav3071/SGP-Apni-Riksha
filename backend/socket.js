@@ -44,6 +44,30 @@ function initializeSocket(server) {
             }
         });
 
+        socket.on('update-location-saarthi', async (data) => {
+            console.log("Saarthi location update received:", data);
+            const { saarthiId, location } = data; // Destructure saarthiId and location from data
+
+            try {
+                if (!location || !location.latitude || !location.longitude) {
+                    console.error("Invalid location data:", location);
+                    return;
+                }
+                const result = await saarthiModel.findByIdAndUpdate(saarthiId, { 
+                    location:{
+                        latitude: location.latitude,
+                        longitude: location.longitude
+                    } }, { new: true });
+                if (!result) {
+                    console.error(`Saarthi with ID ${saarthiId} not found`);
+                } else {
+                    console.log("Saarthi location updated:", result);
+                }
+            } catch (error) {
+                console.error("Error updating Saarthi location:", error);
+            }
+        });
+
         // Handle Saarthi disconnection
         socket.on('disconnect', async () => {
             console.log(`Client disconnected: ${socket.id}`);

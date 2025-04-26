@@ -59,7 +59,7 @@ const saarthiSchema = new mongoose.Schema({
         }
     },
     location: {
-        lastitude:{
+        latitude:{
             type: Number
         },
         longitude:{

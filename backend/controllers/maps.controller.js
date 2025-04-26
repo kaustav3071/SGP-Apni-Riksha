@@ -1,6 +1,7 @@
 const mapService = require('../services/maps.service'); 
 const { validationResult } = require('express-validator');
 const axios = require('axios');
+const saarthiModel = require('../models/saarthi.model'); // Adjust the path as necessary
 
 module.exports.getCoordinate = async (req, res) => {
 
@@ -74,3 +75,15 @@ module.exports.getSuggestion = async (req, res) => {
         return res.status(500).json({ message: `Error fetching suggestions in catch: ${error.message}` });
     }
 };
+
+module.exports.getSaarthiInTheRadius = async (latitude, longitude, radius) => {
+
+    const saarthi = await saarthiModel.find({
+        location: {
+            $geoWithin: {
+                $centerSphere: [[longitude, latitude], radius / 3963.2] // Radius in miles
+            }
+        }
+    }).limit(10).exec();
+    return saarthi;
+}
