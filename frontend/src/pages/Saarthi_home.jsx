@@ -39,6 +39,23 @@ const Saarthi_Home = () => {
         if (saarthi && saarthi._id) {
             console.log("Joining Saarthi room with ID:", saarthi._id);
             sendMessage("join", { userType: "saarthi", userId: saarthi._id });
+
+            const updateLocationInterval = setInterval(() => {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition((position) => {
+                        const locationData = {
+                            saarthiId: saarthi._id,
+                            location: {
+                                latitude: position.coords.latitude,
+                                longitude: position.coords.longitude,
+                            },
+                        };
+                        sendMessage("update-location-saarthi", locationData);
+                    });
+                }   
+            }, 5000); // Update location every 5 seconds
+
+            return () => clearInterval(updateLocationInterval);
         }
 
         receiveMessage("ride-request", (rideData) => {

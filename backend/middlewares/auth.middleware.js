@@ -38,6 +38,7 @@ module.exports.authUser = async (req, res, next) => {
 
 module.exports.authSaarthi = async (req, res, next) => {
     // Get token from either cookies or Authorization header
+    console.log("AuthSaarthi middleware called");
     const token = req.cookies.token || (req.headers.authorization && req.headers.authorization.split(' ')[1]);
 
     if (!token) {

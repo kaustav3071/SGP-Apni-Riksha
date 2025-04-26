@@ -19,8 +19,11 @@ const Saarthi_Login = () => {
         const saarthiData = { email, password };
         setEmail("");
         setPassword("");
-
+    
         try {
+            console.log("Sending request to:", import.meta.env.VITE_BASE_URL + "/saarthi/login");
+            console.log("Request data:", saarthiData);
+    
             const response = await axios.post(import.meta.env.VITE_BASE_URL + "/saarthi/login", saarthiData);
     
             if (response.status === 200) {

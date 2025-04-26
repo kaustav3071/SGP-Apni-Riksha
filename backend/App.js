@@ -25,6 +25,7 @@ app.get('/', (req, res) => {
 app.use('/users', userRoutes);
 
 app.use('/saarthi', saarthiRoutes);
+console.log("Saarthi routes registered at /saarthi");
 
 app.use('/maps', mapsRoutes);
 

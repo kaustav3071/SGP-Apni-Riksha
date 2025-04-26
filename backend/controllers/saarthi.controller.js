@@ -52,6 +52,7 @@ module.exports.registerSaarthi = async (req, res, next) => {
 // Login a saarthi
 
 module.exports.loginSaarthi = async (req, res, next) => {
+    console.log("Login request received:", req.body);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -77,9 +78,11 @@ module.exports.loginSaarthi = async (req, res, next) => {
         res.status(200).json({
             token,
             saarthi: {
+                _id: saarthi._id, // Include the Saarthi ID
                 fullName: saarthi.fullName,
                 email: saarthi.email,
                 vehicle: saarthi.vehicle,
+                status: saarthi.status, // Include the Saarthi status
             },
         });
     } catch (error) {
