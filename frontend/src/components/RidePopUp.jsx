@@ -46,8 +46,8 @@ const RidePopUp = ({ ride, onAccept, onCancel }) => {
                                     ❌
                                 </motion.button>
 
-                                <p className="text-lg font-semibold text-gray-900">{ride?.name || "Hardik Pandya"}</p>
-                                <p className="text-lg font-semibold text-gray-900">{ride?.phone || "9876543210"}</p>
+                                <p className="text-lg font-semibold text-gray-900">{ride?.name || "kaustav das"}</p>
+                                <p className="text-lg font-semibold text-gray-900">{ride?.phone || "kaustav@gmail.com" }</p>
                                 <img src={ride?.image || "https://randomuser.me/api/portraits/men/1.jpg"} alt="Rider" className="w-24 h-24 rounded-full mt-4" />
                                 <p className="text-lg font-semibold text-gray-900">{ride?.address || "Mumbai, Maharashtra"}</p>
                                 <p className="text-lg font-semibold text-gray-900">{ride?.time || "10:00 AM"}</p>
