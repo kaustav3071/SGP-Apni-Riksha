@@ -4,7 +4,7 @@ import APNI1 from "../assets/APNI1.png"; // Replace with logo
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
-const CaptainRiding = () => {
+const CaptainRiding = ({ ride }) => {
     const navigate = useNavigate();
     const [showPopup, setShowPopup] = useState(false);
 
@@ -32,7 +32,8 @@ const CaptainRiding = () => {
 
             {/* Ride Details */}
             <div className="bg-green-200 p-4 rounded-t-3xl shadow-md py-6 text-center relative">
-                <p className="text-lg font-semibold"> 🛣️ 4KM away..</p>
+                <p className="text-lg font-semibold">📍 Pickup: {ride?.pickupLocation || "Uttarsanda Railway Station"}</p>
+                <p className="text-lg font-semibold mt-2">📍 Drop-off: {ride?.dropoffLocation || "Anand, Gujarat, India"}</p>
                 
                 {/* Ride Completed Button */}
                 <button 
@@ -56,15 +57,15 @@ const CaptainRiding = () => {
                         <h2 className="text-2xl font-bold text-green-600">🎉 Ride Successfully Completed!</h2>
                         <div className="flex justify-center space-x-6 mt-4">
                             <div className="w-24 h-24 bg-yellow-400 rounded-full flex flex-col items-center justify-center shadow-md">
-                                <p className="font-bold text-lg text-blue-600">₹ 50</p>
+                                <p className="font-bold text-lg text-blue-600">₹224</p>
                                 <p className="text-semibold text-gray-500">EST Fare</p>
                             </div>
                             <div className="w-24 h-24 bg-yellow-400 rounded-full flex flex-col items-center justify-center shadow-md">
-                                <p className="font-bold text-lg text-blue-600">4KM</p>
+                                <p className="font-bold text-lg text-blue-600">19 KM</p>
                                 <p className="text-semibold text-gray-500">Distance</p>
                             </div>
                             <div className="w-24 h-24 bg-yellow-400 rounded-full flex flex-col items-center justify-center shadow-md">
-                                <p className="font-bold text-lg text-blue-600">15 mins</p>
+                                <p className="font-bold text-lg text-blue-600">20 mins</p>
                                 <p className="text-semibold text-gray-500">EST Time</p>
                             </div>
                         </div>

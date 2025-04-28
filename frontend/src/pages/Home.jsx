@@ -11,6 +11,9 @@ import { useEffect } from "react";
 import { useContext } from "react";
 import { UserDataContext } from "../context/userContext";
 import  SaarthiContext  from "../context/SaarthiContext";
+import DriverDetails from "../components/DriverDetails";
+import RideComplete from "../components/RideComplete";
+import LiveTracking from "../components/LiveTracking";
 
 
 const Home = () => {
@@ -22,6 +25,8 @@ const Home = () => {
     const [showAutoDetails, setShowAutoDetails] = useState(false);
     const [selectedRide, setSelectedRide] = useState(null);
     const [showLookingForDriver, setShowLookingForDriver] = useState(false);
+    const [showDriverDetails, setShowDriverDetails] = useState(false);
+    const [showRideComplete, setShowRideComplete] = useState(false);
     
     const { sendMessage, receiveMessage } = useContext(SocketContext);
     console.log("SocketContext:", { sendMessage, receiveMessage });
@@ -108,6 +113,28 @@ const Home = () => {
             alert("Failed to confirm ride. Please try again.");
         }
     };
+    
+    useEffect(() => {
+        if (showLookingForDriver) {
+            const timer = setTimeout(() => {
+                setShowLookingForDriver(false); // Close LookingForDriver
+                setShowDriverDetails(true); // Show DriverDetails
+            }, 5000); // 5 seconds
+
+            return () => clearTimeout(timer); // Cleanup the timer on unmount or state change
+        }
+    }, [showLookingForDriver]);
+    
+    useEffect(() => {
+        if (showDriverDetails) {
+            const timer = setTimeout(() => {
+                setShowDriverDetails(false); // Close DriverDetails
+                setShowRideComplete(true); // Show RideComplete
+            }, 5000); // 5 seconds
+    
+            return () => clearTimeout(timer); // Cleanup the timer on unmount or state change
+        }
+    }, [showDriverDetails]);
 
     return (
         <div className="h-screen flex flex-col bg-yellow-100 relative" style={{ fontFamily: 'sans-serif' }}>
@@ -115,7 +142,8 @@ const Home = () => {
 
             {!isExpanded && !showAutoDetails && (
                 <div className="w-full h-2/3 relative">
-                    <img src={Map} alt="Map" className="w-full h-full object-cover rounded-b-lg shadow-md" />
+                    {/* <img src={Map} alt="Map" className="w-full h-full object-cover rounded-b-lg shadow-md" /> */}
+                    <LiveTracking />
                 </div>
             )}
 
@@ -253,9 +281,29 @@ const Home = () => {
             {showLookingForDriver && (
                 <LookingForDriver
                     ride={selectedRide}
+                    onCancel={() => 
+                        {
+                            setShowLookingForDriver(false);
+                            setShowDriverDetails(false);
+                        }
+                    }
+                />
+            )}
+
+            
+            {/* Show Driver Details Panel */}
+            {showDriverDetails && (
+                <DriverDetails
+                    ride={selectedRide}
                     onCancel={() => setShowLookingForDriver(false)}
                 />
             )}
+
+            {/* Show Ride Complete Panel */}
+            {showRideComplete && (
+                <RideComplete onClose={() => setShowRideComplete(false)} />
+            )}
+
         </div>
     );
 };
