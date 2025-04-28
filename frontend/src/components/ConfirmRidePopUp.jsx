@@ -49,9 +49,9 @@ const ConfirmRidePopUp = ({ ride, onCancel }) => {
                 {/* Trip Fare */}
                 <div className="p-4 border-b border-gray-200">
                     <p className="text-sm text-gray-500">TRIP FARE</p>
-                    <p className="flex justify-between"><span>Cash</span><span>₹237.00</span></p>
+                    <p className="flex justify-between"><span>Cash</span><span>₹234.00</span></p>
                     <p className="flex justify-between"><span>Discount</span><span>-₹10.00</span></p>
-                    <p className="flex justify-between font-bold"><span>Paid Amount</span><span>₹227.00</span></p>
+                    <p className="flex justify-between font-bold"><span>Paid Amount</span><span>₹224.00</span></p>
                 </div>
 
                 {/* Buttons */}
