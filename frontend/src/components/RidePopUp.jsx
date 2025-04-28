@@ -16,6 +16,18 @@ const RidePopUp = ({ ride, onAccept, onCancel }) => {
         onAccept(ride); // Notify parent component
     };
 
+    // Get current date and time
+    const currentDate = new Date();
+    const formattedDate = currentDate.toLocaleDateString("en-US", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+    });
+    const formattedTime = currentDate.toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+    });
+
     return (
         <>
             {rideAccepted ? (
@@ -47,14 +59,14 @@ const RidePopUp = ({ ride, onAccept, onCancel }) => {
                                 </motion.button>
 
                                 <p className="text-lg font-semibold text-gray-900">{ride?.name || "kaustav das"}</p>
-                                <p className="text-lg font-semibold text-gray-900">{ride?.phone || "kaustav@gmail.com" }</p>
+                                <p className="text-lg font-semibold text-gray-900">{ride?.phone || "kaustav@gmail.com"}</p>
                                 <img src={ride?.image || "https://randomuser.me/api/portraits/men/1.jpg"} alt="Rider" className="w-24 h-24 rounded-full mt-4" />
-                                <p className="text-lg font-semibold text-gray-900">{ride?.address || "Mumbai, Maharashtra"}</p>
-                                <p className="text-lg font-semibold text-gray-900">{ride?.time || "10:00 AM"}</p>
-                                <p className="text-lg font-semibold text-gray-900">{ride?.date || "12th August, 2021"}</p>
 
+                                <p className="text-lg font-semibold text-gray-900 mt-4">📍 {ride?.address || "Uttarsanda Railway Station"}</p>
+                                <p className="text-lg font-semibold text-gray-900 mt-2">⏰ {ride?.time || formattedTime}</p>
+                                <p className="text-lg font-semibold text-gray-900 mt-2">📅 {ride?.date || formattedDate}</p>
 
-                                <div className="w-full flex justify-between gap-4">
+                                <div className="w-full flex justify-between gap-4 mt-6">
                                     <motion.button
                                         className="w-1/2 p-3 bg-green-600 text-white rounded-lg text-lg font-semibold hover:bg-green-700 transition"
                                         whileTap={{ scale: 0.95 }}
