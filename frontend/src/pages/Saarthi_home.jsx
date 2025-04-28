@@ -36,6 +36,7 @@ const Saarthi_Home = () => {
 
     useEffect(() => {
         console.log("Saarthi context:", saarthi);
+        setShowRidePopup(true);
         if (saarthi && saarthi._id) {
             console.log("Joining Saarthi room with ID:", saarthi._id);
             sendMessage("join", { userType: "saarthi", userId: saarthi._id });
@@ -43,6 +44,9 @@ const Saarthi_Home = () => {
             const updateLocationInterval = setInterval(() => {
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition((position) => {
+
+                        console.log("saaathi location:",saarthi._id, position.coords.latitude, position.coords.longitude);
+                        // Send the updated location to the server
                         const locationData = {
                             saarthiId: saarthi._id,
                             location: {

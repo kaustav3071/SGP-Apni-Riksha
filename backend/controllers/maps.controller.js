@@ -76,14 +76,14 @@ module.exports.getSuggestion = async (req, res) => {
     }
 };
 
-module.exports.getSaarthiInTheRadius = async (latitude, longitude, radius) => {
+// module.exports.getSaarthiInTheRadius = async (latitude, longitude, radius) => {
 
-    const saarthi = await saarthiModel.find({
-        location: {
-            $geoWithin: {
-                $centerSphere: [[longitude, latitude], radius / 3963.2] // Radius in miles
-            }
-        }
-    }).limit(10).exec();
-    return saarthi;
-}
+//     const saarthi = await saarthiModel.find({
+//         location: {
+//             $geoWithin: {
+//                 $centerSphere: [[longitude, latitude], radius / 3963.2] // Radius in miles
+//             }
+//         }
+//     }).limit(10).exec();
+//     return saarthi;
+// }

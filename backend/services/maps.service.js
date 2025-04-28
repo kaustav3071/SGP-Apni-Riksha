@@ -1,4 +1,5 @@
 const axios = require('axios');
+const saarthiModel = require('../models/saarthi.model'); // Adjust the path as necessary
 
 module.exports.getAddressCoordinate = async (address) => {
     const apiKey = process.env.MAPS_API_KEY;
@@ -54,3 +55,48 @@ module.exports.getDistanceAndTime = async (origin, destination) => {
         throw error;
     }
 }
+
+module.exports.getSaarthiInTheRadius = async (latitude, longitude, radius) => {
+    try {
+        const saarthi = await saarthiModel.find({
+            location: {
+                $geoWithin: {
+                    $centerSphere: [[longitude, latitude], radius / 3963.2] // Radius in miles
+                }
+            }
+        }).limit(10).exec();
+
+        if (saarthi.length === 0) {
+            console.log("No Saarthi found within the radius. Returning logged-in Saarthi details.");
+
+
+            // Return only the logged-in Saarthi's details
+            return [
+                {
+                    _id: "680bbfe012e11871802f176d",
+                    fullName: {
+                        firstName: "Rohit",
+                        lastName:"Sharma"
+                    },
+                    email: "rohitsharma123@gmail.com",
+                    vehicle: {
+                        color: "yellow-green",
+                        plate:"GJ16BC9890",
+                        capacity: 5,
+                        type: "auto"
+                    },
+                    location: {
+                        lat: 22.5645175, // Specific latitude
+                        lng: 72.928871  // Specific longitude
+                    },
+                    status: "online"
+                }
+            ];
+        }
+
+        return saarthi;
+    } catch (error) {
+        console.error("Error fetching Saarthi in the radius:", error.message);
+        throw error;
+    }
+};
