@@ -32,7 +32,6 @@ Apni Riksha is a **mobile web-based auto rickshaw booking system** designed for 
 ![confirm](/images/image-4.png)
 ![looking driver](/images/image-8.png)
 ![rider_details](/images/image-7.png)
-![driver](/images/image-6.png)
 ![ride complete](/images/image-5.png)
 
 
