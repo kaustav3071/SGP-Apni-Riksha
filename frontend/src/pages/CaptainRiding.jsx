@@ -3,6 +3,7 @@ import Map from "../assets/UberAuto-Delhi.jpg"; // Replace with live map source
 import APNI1 from "../assets/APNI1.png"; // Replace with logo
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import LiveTracking from "../components/LiveTracking";
 
 const CaptainRiding = ({ ride }) => {
     const navigate = useNavigate();
@@ -27,11 +28,11 @@ const CaptainRiding = ({ ride }) => {
 
             {/* Map Section */}
             <div className="w-full h-[80%] relative">
-                <img src={Map} alt="Map" className="w-full h-full object-cover rounded-b-lg shadow-md" />
+                <LiveTracking/>
             </div>
 
             {/* Ride Details */}
-            <div className="bg-green-200 p-4 rounded-t-3xl shadow-md py-6 text-center relative">
+            <div className="bg-green-200 p-4 rounded-t-3xl shadow-md py-20 text-center relative">
                 <p className="text-lg font-semibold">📍 Pickup: {ride?.pickupLocation || "Uttarsanda Railway Station"}</p>
                 <p className="text-lg font-semibold mt-2">📍 Drop-off: {ride?.dropoffLocation || "Anand, Gujarat, India"}</p>
                 

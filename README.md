@@ -1,4 +1,3 @@
-## CURRENTLY IN PROGRESS......
 # 🛺 Apni Riksha - Auto Rickshaw Booking System
 
 ### **MERN Stack | Real-Time Ride Booking | Map Integration**
@@ -22,7 +21,30 @@ Apni Riksha is a **mobile web-based auto rickshaw booking system** designed for 
 - **API & Services:** Maps API, JWT Authentication  
 
 ## 📸 Screenshots  
-updated soon...
+
+![Home page](/images/image.png)
+
+## User Pages
+
+![user](/images/image-1.png)
+![map](/images/image-2.png)
+![fare](/images/image-3.png)
+![confirm](/images/image-4.png)
+![looking driver](/images/image-8.png)
+![rider_details](/images/image-7.png)
+![driver](/images/image-6.png)
+![ride complete](/images/image-5.png)
+
+
+## Saarthi Pages
+
+![rider register](/images/rimage.png)
+![rider login](/images/rimage1.png)
+![ride pop up](/images/rimage-2.png)
+![ride details](/images/rimage%203.png)
+![ride complate](/images/rimage%204.png)
+![fare](/images/rimage%205.png)
+
 
 ## 🚀 Getting Started  
 
@@ -79,7 +101,7 @@ Contributions are welcome! Feel free to fork, create a branch, and submit a pull
 This project is licensed under the MIT License.
 
 ### **📬 Contact**
-📧 Email: kdas.portfolio@gmail.com<br>
+📧 Email: kaustavdas2027@gmail.com<br>
 🔗 LinkedIn: [**Linkedln**](https://www.linkedin.com/in/kaustavdas1703/)<br>
 🌐 Website: [**My Portfolio**](https://kaustavdas.up.railway.app/)
 

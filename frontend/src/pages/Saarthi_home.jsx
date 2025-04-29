@@ -7,6 +7,7 @@ import RidePopUp from "../components/RidePopUp";
 import ConfirmRidePopUp from "../components/ConfirmRidePopUp";
 import { SocketContext } from "../context/socketContext";
 import { SaarthiDataContext } from "../context/SaarthiContext";
+import LiveTracking from "../components/LiveTracking";
 
 const Saarthi_Home = () => {
     const navigate = useNavigate();
@@ -92,7 +93,7 @@ const Saarthi_Home = () => {
 
             {/* Map Section */}
             <div className="w-full h-[55%] relative">
-                <img src={Map} alt="Map" className="w-full h-full object-cover rounded-b-lg shadow-md" />
+                <LiveTracking />
             </div>
 
             {/* Saarthi Details */}
